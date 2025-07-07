@@ -1,0 +1,15 @@
+<h2>「<%= @keyword %>」の<%= @model == "user" ? "ユーザー" : "投稿" %>検索結果</h2>
+
+<% if @results.present? %>
+  <ul>
+    <% @results.each do |result| %>
+      <% if @model == "user" %>
+        <li><%= link_to result.name, user_path(result) %></li>
+      <% elsif @model == "book" %>
+        <li><%= link_to result.title, book_path(result) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p>該当する<%= @model == "user" ? "ユーザー" : "投稿" %>は見つかりませんでした。</p>
+<% end %>

@@ -54,4 +54,23 @@
       </div>
     </div>
   </nav>
+  
+  <% if user_signed_in? %>
+  <div class="search-form">
+    <%= form_with url: searches_search_path, method: :get, local: true do |form| %>
+      <%= form.text_field :keyword, placeholder: "検索ワード" %>
+
+      <%= form.select :model, options_for_select([["ユーザー", "user"], ["投稿", "book"]]), prompt: "検索対象を選択" %>
+
+      <%= form.select :search_type, options_for_select([
+          ["完全一致", "perfect"],
+          ["前方一致", "forward"],
+          ["後方一致", "backward"],
+          ["部分一致", "partial"]
+        ]), prompt: "検索方法を選択" %>
+
+      <%= form.submit "検索" %>
+    <% end %>
+  </div>
+<% end %>
 </header>
