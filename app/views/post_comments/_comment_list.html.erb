@@ -1,0 +1,13 @@
+<div class="mt-4">
+<h4>コメント一覧</h4>
+<p>コメント件数：<%= @book1.post_comments.count %></p>
+<% @book1.post_comments.each do |post_comment| %>
+  <div class="border p-2 mb-2">
+    <p><%= image_tag post_comment.user.get_profile_image, size: "100x100" %></p>
+    
+    <strong><%= post_comment.user.name %></strong>
+    <span class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+    <p><%= post_comment.comment %></p>
+  </div>
+<% end %>
+</div>

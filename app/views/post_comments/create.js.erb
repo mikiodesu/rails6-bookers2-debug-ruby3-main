@@ -1,0 +1,5 @@
+// コメント一覧を更新
+$("#comment-list").html("<%= j(render partial: 'post_comments/comment_list', locals: { book1: @book1 }) %>");
+
+// フォームを空にする
+$("#comment_body").val("");
