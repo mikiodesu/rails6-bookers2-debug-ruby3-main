@@ -36,4 +36,55 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
+
+  def books_today_count
+    books.where(created_at: Time.zone.today.all_day).count
+  end
+
+  def books_yesterday_count
+    books.where(created_at: 1.day.ago.to_date.all_day).count
+  end
+
+  def books_growth_rate_percentage
+    today = books_today_count
+    yesterday = books_yesterday_count
+
+    return "0%" if today.zero? && yesterday.zero?
+    return "∞%" if yesterday.zero? && today.positive?
+
+    rate = (today.to_f / yesterday * 100).round
+    "#{rate}%"
+  end
+
+  def books_this_week_count
+    today = Time.zone.today
+    days_since_saturday = (today.wday + 1) % 7
+    week_start = today - days_since_saturday.days
+    week_end   = week_start + 6.days
+
+    books.where(created_at: week_start.beginning_of_day..week_end.end_of_day).count
+  end
+
+
+  def books_last_week_count
+    books.where(created_at: 13.days.ago.beginning_of_day..7.days.ago.end_of_day).count
+  end
+
+  # 今週（過去7日間）の投稿数
+  def books_past_7_days_count
+    books.where(created_at: 6.days.ago.beginning_of_day..Time.zone.now.end_of_day).count
+  end
+
+  # 伸び率（パーセンテージ文字列）
+  def books_weekly_growth_rate_percentage
+    last_week = books_last_week_count
+    this_week = books_past_7_days_count
+
+    if last_week == 0
+      return this_week > 0 ? '∞%' : '0%'
+    else
+      rate = ((this_week - last_week).to_f / last_week * 100).round(1)
+      "#{rate}%"
+    end
+  end
 end

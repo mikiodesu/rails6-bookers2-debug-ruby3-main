@@ -9,6 +9,27 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-    </div>
+      <table>
+      <thead>
+        <tr>
+          <th>今日の投稿数</th>
+          <th>前日の投稿数</th>
+          <th>投稿数の伸び率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @user.books_today_count %></td>
+          <td><%= @user.books_yesterday_count %></td>
+          <td><%= @user.books_growth_rate_percentage %></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  
+  
   </div>
 </div>
+
+
+
