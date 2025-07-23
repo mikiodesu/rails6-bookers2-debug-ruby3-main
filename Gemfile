@@ -59,3 +59,7 @@ gem 'devise'
 gem 'net-smtp'
 
 gem 'mini_magick', '~> 5.3.0'
+
+gem 'groupdate'
+
+gem 'chartkick'

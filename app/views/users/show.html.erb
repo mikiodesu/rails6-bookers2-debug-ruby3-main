@@ -15,6 +15,7 @@
           <th>今日の投稿数</th>
           <th>前日の投稿数</th>
           <th>投稿数の伸び率</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -22,9 +23,28 @@
           <td><%= @user.books_today_count %></td>
           <td><%= @user.books_yesterday_count %></td>
           <td><%= @user.books_growth_rate_percentage %></td>
+      
         </tr>
       </tbody>
     </table>
+
+    <h3>7日分の投稿数</h3>
+<table>
+  <tr>
+    <th>日付</th>
+    <th>投稿数</th>
+  </tr>
+  <% @daily_book_counts.each do |date, count| %>
+    <tr>
+      <td><%= date.strftime("%-m/%-d (%a)") %></td>
+      <td><%= count %> 件</td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>過去7日間の投稿数</h3>
+<%= line_chart @daily_book_counts %>
+
     
   
   

@@ -87,4 +87,11 @@ class User < ApplicationRecord
       "#{rate}%"
     end
   end
+
+  def daily_book_counts_past_7_days
+    books
+      .where(created_at: 6.days.ago.beginning_of_day..Time.current.end_of_day)
+      .group_by_day(:created_at, last: 7)
+      .count
+  end
 end
